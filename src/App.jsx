@@ -1,39 +1,30 @@
-import { useEffect, useState } from "react";
-import { fetchData } from "./fetchData";
-import Currency from "./components/Currency";
+import { createContext, useMemo, useState } from "react";
+
+import Card from "./components/Card";
+import { AppContainer, Wrapper } from "./App.styles";
+import Nav from "./components/Nav";
+
+export const CardContext = createContext();
 
 function App() {
-  const [games, setGames] = useState([]);
+  const [cart, setCart] = useState([]);
+  const contextValue = useMemo(() => {
+    return {
+      cart,
+      setCart,
+    };
+  }, [cart, setCart]);
 
-  useEffect(() => {
-    async function getData() {
-      const data = await fetchData();
-      setGames(data);
-    }
-
-    if (games.length === 0) {
-      getData();
-    }
-  }, [games]);
-  console.log("JOQUINHOS", games);
   return (
     <>
-      {games.map((item) => {
-        console.log("CADA IMAGEM", item.image);
-
-        return (
-          <div key={item.id}>
-            <h3>{item.name}</h3>
-            <img
-              style={{ width: 100 + "px" }}
-              src={`/src/assets/img/${item.image}`}
-              alt={`${item.name}`}
-            />
-            <Currency value={item.price} />
-            <h5>Score: {item.score}</h5>
-          </div>
-        );
-      })}
+      <CardContext.Provider value={contextValue}>
+        <Wrapper>
+          <Nav cart={contextValue.cart} />
+          <AppContainer>
+            <Card contextValue={contextValue} />
+          </AppContainer>
+        </Wrapper>
+      </CardContext.Provider>
     </>
   );
 }
