@@ -1,8 +1,10 @@
 import { createContext, useMemo, useState } from "react";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Card from "./components/Card";
-import { AppContainer, Wrapper } from "./App.styles";
 import Nav from "./components/Nav";
+
+import { Wrapper } from "./App.styles";
+import Cart from "./pages/Cart";
 
 export const CardContext = createContext();
 
@@ -18,12 +20,19 @@ function App() {
   return (
     <>
       <CardContext.Provider value={contextValue}>
-        <Wrapper>
-          <Nav cart={contextValue.cart} />
-          <AppContainer>
-            <Card contextValue={contextValue} />
-          </AppContainer>
-        </Wrapper>
+        <BrowserRouter>
+          <Wrapper>
+            <Nav cart={contextValue.cart} />
+            <Routes>
+              <Route
+                exact
+                path="/"
+                element={<Card contextValue={contextValue} />}
+              />
+              <Route path="cart" element={<Cart />} />
+            </Routes>
+          </Wrapper>
+        </BrowserRouter>
       </CardContext.Provider>
     </>
   );

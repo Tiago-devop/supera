@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Icon = styled.div`
@@ -14,9 +15,9 @@ export const Icon = styled.div`
     justify-content: center;
     align-items: center;
     position: relative;
-    margin-right: 30px;
     display: flex;
     width: 100px;
+    height: 100%;
   }
 
   img {
@@ -38,8 +39,12 @@ export const Icon = styled.div`
     right: 22px;
     top: 17px;
   }
+`;
 
-  h2 {
-    color: white;
-  }
+export const LinkWrapper = styled(Link)`
+  justify-content: center;
+  align-items: center;
+  margin-right: 30px;
+  display: flex;
+  text-decoration: none;
 `;
