@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { fetchData } from "../fetchData";
 import Currency from "../components/Currency";
 import { CardStyled } from "./Card.styles";
+import { CardContext } from '../App'
 
 export default function Card() {
+  const {cart, setCart} = useContext(CardContext)
   const [games, setGames] = useState([]);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     async function getData() {
@@ -16,7 +19,20 @@ export default function Card() {
       getData();
     }
   }, [games]);
-  console.log("JOQUINHOS", games);
+
+  function handleClick(id, name, price) {
+    const newCard = { id, name, price };
+
+    setCards((prevCards) => [...prevCards, newCard]);
+    setCart((prevCart) => [...prevCart, newCard]);
+
+  }
+
+  useEffect(() => {
+    console.log("CARDS", cards);
+    console.log("CARTTTT", cart);
+  }, [cards]);
+  
   return (
     <>
       {games.map((item) => {
@@ -30,6 +46,9 @@ export default function Card() {
             />
             <Currency value={item.price} />
             <h5>Score: {item.score}</h5>
+            <button onClick={() => handleClick(item.id, item.name, item.price)}>
+              ADD CART
+            </button>
           </CardStyled>
         );
       })}
