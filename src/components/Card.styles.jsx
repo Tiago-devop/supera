@@ -13,15 +13,31 @@ export const GamesContainer = styled.div`
 export const CardStyled = styled.div`
   background: ${(props) =>
     `linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url(/src/assets/img/${props.backImage})`};
-  background-size: cover;
   background-position: center;
   border: 1px solid black;
-  padding: 10px;
-  display: flex;
+  background-size: cover;
   flex-direction: column;
   align-items: center;
-  width: 200px;
   border-radius: 10px;
-  margin: 10px;
   text-align: center;
+  padding: 10px;
+  display: flex;
+  width: 200px;
+  height: 300px;
+  margin: 10px;
+  justify-content: space-between;
+
+  img {
+    width: 80px;
+  }
+
+  button {
+    background-color: black;
+    border-radius: 30px;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    color: white;
+    font-size: 0.9rem;
+  }
 `;
